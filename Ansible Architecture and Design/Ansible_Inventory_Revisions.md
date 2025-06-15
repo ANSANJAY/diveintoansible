@@ -268,7 +268,7 @@ Same inventory structure expressed in YAML format. Clean and readable.
   }
 }
 ```
-Here are your structured **technical notes** for the **Ansible Modules** video, with clear breakdowns, examples, and interview prep:
+
 
 ---
 
@@ -276,6 +276,9 @@ Here are your structured **technical notes** for the **Ansible Modules** video, 
 # 🧾 Ansible Modules – Notes & Examples
 
 This document provides detailed notes and practical examples from the **Modules** section of the *Ansible Architecture and Design* course.
+
+https://opensource.com/article/19/9/must-know-ansible-modules
+
 
 ---
 
@@ -437,4 +440,3 @@ Ansible ensures the system matches the **desired state**, regardless of its **cu
 
 ---
 
-Ready to play with modules in playbooks? → Proceed to the next section: **Ansible Playbooks**
