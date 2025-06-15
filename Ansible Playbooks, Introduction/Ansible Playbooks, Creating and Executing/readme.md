@@ -66,24 +66,7 @@
 | `yaml<br>- name: Unarchive Playbook Stacker<br>  unarchive:<br>    src: playbook_stacker.zip<br>    dest: "{{ nginx_root_dir }}"<br>    remote_src: yes<br>    mode: '0755'<br>` | Extracts a zip file containing the Playbook Stacker game directly into the web server directory. This is a fun way to show extensibility. |
 | `html<br><a href="playbook_stacker/index.html"><img src="{{ logo }}" /></a>`                                                                                                     | Makes the logo a clickable link to the Easter egg game, merging templating and static content deployment.                                 |
 
----
 
-Thanks! I’ve reviewed your transcript and the corresponding repo:
-
-📁 **Repo**: [Install nginx + Website with Jinja2](https://github.com/ANSANJAY/diveintoansible/tree/master/Ansible%20Playbooks%2C%20Introduction/Install%20nginx%20%2B%20Website%20with%20Jinja2)
-🎯 **Topic**: Practical end-to-end playbook for installing nginx on Ubuntu/CentOS, templating websites, adding handlers, using group vars, and deploying Easter eggs.
-
-I'll now provide:
-
-1. ✅ **Simple explanation** of each concept
-2. ✅ **Real-world use case**
-3. ✅ **Markdown-formatted README text** with code + explanation side by side
-4. ✅ **Interview Q\&A** for this section
-
-Let’s start with the structured README content first:
-
-
-````markdown
 # Deploying NGINX + Website with Ansible (CentOS & Ubuntu)
 
 This example project demonstrates an end-to-end Ansible playbook that:
