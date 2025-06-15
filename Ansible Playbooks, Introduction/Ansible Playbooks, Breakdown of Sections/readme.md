@@ -1,5 +1,3 @@
-
-````markdown
 # 📘 Ansible Playbooks: Breakdown of Sections
 
 This guide explains the structure and behavior of Ansible playbooks, aligned with the example revisions in this folder. Each revision introduces a new concept, with hands-on YAML examples and explanations.
