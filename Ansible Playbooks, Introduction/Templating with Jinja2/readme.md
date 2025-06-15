@@ -1,4 +1,4 @@
----
+
 
 ## 📘 Ansible Notes: Templating with Jinja2
 
@@ -7,7 +7,6 @@ Jinja2 is the templating engine Ansible uses to:
 * Render dynamic content in playbooks and templates
 * Manipulate variables using expressions, conditionals, filters, loops, etc.
 
----
 
 ### ✅ Summary Table
 
