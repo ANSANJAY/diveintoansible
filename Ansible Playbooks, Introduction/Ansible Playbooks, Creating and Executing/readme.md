@@ -1,7 +1,3 @@
-Here is the **side-by-side code and explanation** for the topic **“Creating and Executing Ansible Playbooks”**, using your repo:
-🔗 [GitHub Example - Creating and Executing](https://github.com/ANSANJAY/diveintoansible/tree/master/Ansible%20Playbooks%2C%20Introduction/Ansible%20Playbooks%2C%20Creating%20and%20Executing)
-
----
 
 ### ✅ Revision 0 – Basic Nginx Install Task for CentOS and Ubuntu (YUM/APT Based)
 
