@@ -1,6 +1,3 @@
-Here is the full **README content** you can paste into your `Ansible Playbooks, Breakdown of Sections` folder on GitHub. It combines the **structured notes** with the corresponding **code examples from your repo revisions**:
-
----
 
 ````markdown
 # 📘 Ansible Playbooks: Breakdown of Sections
