@@ -1,7 +1,3 @@
-Perfect! I’ll now create detailed technical notes on **Templating with Jinja2 in Ansible** using your transcript and examples from:
-
-📂 [Templating with Jinja2 - GitHub Repo](https://github.com/ANSANJAY/diveintoansible/tree/master/Ansible%20Playbooks%2C%20Introduction/Templating%20with%20Jinja2)
-
 ---
 
 ## 📘 Ansible Notes: Templating with Jinja2
