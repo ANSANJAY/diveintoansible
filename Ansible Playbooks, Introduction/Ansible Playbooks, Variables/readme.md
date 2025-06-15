@@ -165,6 +165,101 @@ Password is not shown while typing but is usable in playbook.
 
 ---
 
+
+### 🔹 What is `hostvars` in Ansible?
+
+`hostvars` is a **magic variable** in Ansible that lets you **access variables of other hosts** in your inventory.
+
+Think of `hostvars` as a dictionary (like a Python `dict`) where:
+
+* **Keys** = hostnames
+* **Values** = dictionaries of variables defined for each host
+
+---
+
+### 🧠 What does this do?
+
+```yaml
+- debug:
+    msg: "{{ hostvars[inventory_hostname].ansible_port }}"
+```
+
+Let’s explain this step by step:
+
+| Element                                     | Meaning                                                   |
+| ------------------------------------------- | --------------------------------------------------------- |
+| `hostvars`                                  | A special dictionary storing variable info for every host |
+| `inventory_hostname`                        | The name of the **current host** in the playbook loop     |
+| `hostvars[inventory_hostname]`              | Grabs all variables for the **current host**              |
+| `hostvars[inventory_hostname].ansible_port` | Fetches the `ansible_port` variable for the current host  |
+
+---
+
+### 📦 Analogy
+
+Imagine you have a box (`hostvars`) with a drawer for every server.
+
+You’re currently inside the drawer for `web01`, and you want to check what port `web01` is using → so you look inside `hostvars["web01"]["ansible_port"]`.
+
+---
+
+### ✅ Real Example with Inventory
+
+#### `inventory.yml`
+
+```ini
+[web]
+web01 ansible_host=192.168.1.10 ansible_port=2222
+web02 ansible_host=192.168.1.11 ansible_port=2200
+```
+
+#### `playbook.yml`
+
+```yaml
+- name: Demo hostvars
+  hosts: web
+  gather_facts: false
+  tasks:
+    - name: Print my port
+      debug:
+        msg: "I am {{ inventory_hostname }} and my port is {{ hostvars[inventory_hostname].ansible_port }}"
+```
+
+---
+
+### 🔄 Output:
+
+```yaml
+TASK [Print my port]
+ok: [web01] => (item=web01) => {
+  "msg": "I am web01 and my port is 2222"
+}
+ok: [web02] => (item=web02) => {
+  "msg": "I am web02 and my port is 2200"
+}
+```
+
+---
+
+### 💡 Common Use Cases
+
+| Use Case                            | Description                     |
+| ----------------------------------- | ------------------------------- |
+| Getting IP of another host          | `hostvars['db01'].ansible_host` |
+| Accessing group vars per host       | `hostvars[item]['env']`         |
+| Sharing dynamic facts between hosts | Use `set_fact` + `hostvars`     |
+
+---
+
+### ❓ Interview Tip
+
+> **Q: What is `hostvars` and when would you use it?**
+> **A:** `hostvars` is a dictionary of all hosts and their variables. It’s useful when one host needs to access variables or facts about another host — like retrieving the IP of a database server from an app server.
+
+---
+
+
+
 ### 🔹 `10-missing-vars-error`
 
 **Concept**: Accessing a variable that is not defined causes an error for other hosts.
