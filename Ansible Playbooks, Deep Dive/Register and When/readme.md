@@ -1,7 +1,3 @@
-Awesome. Let's now break down the **"Register and When"** concept from the transcript in a structured, interview-prep-ready format.
-
----
-
 ## ✅ Concept: Register and When in Ansible
 
 ### 🔹 Simple Explanation
@@ -45,7 +41,7 @@ Here’s how `register` and `when` help:
 
 ## 💡 Examples from Your Repo
 
-Assuming you’ll be adding this to your GitHub under `Playbook_Conditional_Register_When`, here’s a **side-by-side breakdown**:
+ Here’s a **side-by-side breakdown**:
 
 | **Snippet**                                                                                                                                        | **Explanation**                                                                      |                                           |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------- |
