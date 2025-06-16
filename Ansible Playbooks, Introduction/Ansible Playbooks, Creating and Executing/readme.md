@@ -299,15 +299,12 @@ This project shows how to:
 
 ```
 
----
-
 
 
 # 📘 Ansible Playbooks: Creating and Executing
 
 This section demonstrates foundational examples of writing, structuring, and running Ansible playbooks. Each example in this directory builds your understanding of how tasks are defined and executed across target machines using Ansible.
 
----
 
 ## 🗂️ Table of Contents
 
@@ -335,7 +332,7 @@ This section demonstrates foundational examples of writing, structuring, and run
   tasks:
     - name: Test connectivity
       ping:
-```
+
 
 ### 🔍 Purpose
 
