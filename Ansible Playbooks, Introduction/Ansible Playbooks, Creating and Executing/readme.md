@@ -299,4 +299,272 @@ This project shows how to:
 
 ```
 
+---
+
+
+
+# 📘 Ansible Playbooks: Creating and Executing
+
+This section demonstrates foundational examples of writing, structuring, and running Ansible playbooks. Each example in this directory builds your understanding of how tasks are defined and executed across target machines using Ansible.
+
+---
+
+## 🗂️ Table of Contents
+
+| Revision Folder | Description                                                |
+| --------------- | ---------------------------------------------------------- |
+| `01`            | Minimal playbook with single task using `ping`             |
+| `02`            | Using `ansible-playbook` CLI with inventory and connection |
+| `03`            | Adding debug task                                          |
+| `04`            | Working with `gather_facts: false`                         |
+| `05`            | Multiple tasks with `shell` and `command`                  |
+| `06`            | Using `yum` and `apt` for package management               |
+| `07`            | Using `when` conditionals                                  |
+| `08`            | Registering variables and using `debug`                    |
+| `09`            | Accessing host-specific facts via `hostvars`               |
+| `10`            | Looping with `with_items`                                  |
+| `11`            | Using `include_vars`                                       |
+| `12`            | Applying group-specific variables using `group_vars`       |
+
+---
+
+## 🧪 01 — Basic Ping Playbook
+
+```yaml
+- hosts: all
+  tasks:
+    - name: Test connectivity
+      ping:
 ```
+
+### 🔍 Purpose
+
+* Verifies Ansible connectivity across inventory nodes.
+
+---
+
+## 🧪 02 — CLI Execution Parameters
+
+**Command:**
+
+```bash
+ansible-playbook playbook.yml -i inventory --user=ubuntu --ask-pass
+```
+
+### 🔍 Purpose
+
+* Shows how to pass inventory and connection credentials via CLI.
+
+---
+
+## 🧪 03 — Debug Message
+
+```yaml
+- name: Display Hello Message
+  debug:
+    msg: "Hello from Ansible"
+```
+
+### 🔍 Purpose
+
+* Introduces the `debug` module to output custom messages.
+
+---
+
+## 🧪 04 — Disabling Facts Gathering
+
+```yaml
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: Just a test
+      debug:
+        msg: "Skipped gathering facts"
+```
+
+### 🔍 Purpose
+
+* Improves speed when system facts are not required.
+
+---
+
+## 🧪 05 — Shell and Command Modules
+
+```yaml
+- name: Using command
+  command: uptime
+
+- name: Using shell
+  shell: "echo $HOME"
+```
+
+### 🔍 Purpose
+
+* Demonstrates difference between `command` (no shell features) and `shell` (full shell).
+
+---
+
+## 🧪 06 — Package Installation
+
+```yaml
+- name: Install Nginx on Ubuntu
+  apt:
+    name: nginx
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install Nginx on CentOS
+  yum:
+    name: nginx
+    state: present
+  when: ansible_distribution == "CentOS"
+```
+
+### 🔍 Purpose
+
+* Platform-aware package management using conditionals.
+
+---
+
+## 🧪 07 — Conditional Execution with `when`
+
+```yaml
+- name: Only run this for Ubuntu
+  debug:
+    msg: "Running on Ubuntu"
+  when: ansible_distribution == "Ubuntu"
+```
+
+---
+
+## 🧪 08 — Register Variable
+
+```yaml
+- name: Get uptime
+  command: uptime
+  register: result
+
+- name: Display output
+  debug:
+    var: result.stdout
+```
+
+### 🔍 Purpose
+
+* Registers output of a task and uses it in subsequent ones.
+
+---
+
+## 🧪 09 — Accessing Hostvars
+
+```yaml
+- debug:
+    msg: "{{ hostvars[inventory_hostname].ansible_port }}"
+```
+
+### 🧠 What’s Happening?
+
+* `hostvars` is a magic variable containing facts for all hosts.
+* `inventory_hostname` refers to the current host.
+* You’re accessing a fact (`ansible_port`) stored for the host you’re currently running on.
+
+---
+
+## 🧪 10 — Loops
+
+```yaml
+- name: Install multiple packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - vim
+```
+
+---
+
+## 🧪 11 — Include Variables
+
+```yaml
+- include_vars: custom_vars.yml
+```
+
+### 🔍 Purpose
+
+* Modularizes your variables into external files.
+
+---
+
+## 🧪 12 — Group Vars
+
+Structure:
+
+```
+inventory/
+├── group_vars/
+│   └── webservers.yml
+```
+
+```yaml
+# group_vars/webservers.yml
+custom_message: "This is a webserver"
+```
+
+```yaml
+- name: Display message
+  debug:
+    var: custom_message
+```
+
+### 🔍 Purpose
+
+* Automatically loads variables for specific groups in your inventory.
+
+---
+
+## 💼 Real-World Usage
+
+| Use Case                 | Description                                        |
+| ------------------------ | -------------------------------------------------- |
+| CI/CD Pipelines          | Automated provisioning of testing environments     |
+| Multi-Platform Infra     | OS-aware task execution (`apt` vs `yum`)           |
+| Inventory-Driven Actions | Use `group_vars` and `hostvars` for targeted tasks |
+| Idempotent Infra         | Install packages, restart services only if needed  |
+
+---
+
+## 📜 Sample Interview Questions
+
+1. **What is the difference between `shell` and `command` modules?**
+
+   * `command` is safer and doesn’t use a shell.
+   * `shell` is used when you need shell features like variables or pipes.
+
+2. **How do you pass variables to your playbook from outside?**
+
+   * Use `-e`, `include_vars`, or `group_vars`.
+
+3. **What is `hostvars` used for?**
+
+   * To access variables/facts from other hosts in the inventory.
+
+4. **What’s the use of `gather_facts: false`?**
+
+   * Skips collecting facts to speed up playbooks that don’t require them.
+
+5. **How do you perform platform-specific tasks?**
+
+   * Use `when` with `ansible_distribution`.
+
+---
+
+## 📦 GitHub Repo Reference
+
+| Revision | Description                    | Link                                                                                                                                                                |
+| -------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 01–12    | Step-by-step playbook examples | [View on GitHub](https://github.com/ANSANJAY/diveintoansible/tree/master/Ansible%20Playbooks%2C%20Introduction/Ansible%20Playbooks%2C%20Creating%20and%20Executing) |
+
+---
+
+
