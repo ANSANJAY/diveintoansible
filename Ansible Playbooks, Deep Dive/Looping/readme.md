@@ -220,5 +220,135 @@ with_subelements:
 > * You need to send each assignment **to the right student**—not randomly mix them up.
 
 ---
+Here’s a comprehensive note based on your repo:
+🔗 **[Looping in Ansible – GitHub Repo](https://github.com/ANSANJAY/diveintoansible/tree/master/Ansible%20Playbooks%2C%20Deep%20Dive/Looping)**
+
+---
+
+## 🧪 3. **Examples from Your Repo**
+
+### ✅ `01-with_items`
+
+```yaml
+- name: Install multiple packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - nginx
+    - curl
+```
+
+---
+
+### ✅ `02-loop`
+
+```yaml
+- name: Add users
+  user:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - alice
+    - bob
+    - charlie
+```
+
+---
+
+### ✅ `03-with_dict`
+
+```yaml
+- name: Print user home directories
+  debug:
+    msg: "User: {{ item.key }} lives in {{ item.value }}"
+  with_dict:
+    alice: /home/alice
+    bob: /home/bob
+```
+
+---
+
+### ✅ `04-with_subelements`
+
+```yaml
+users:
+  - name: alice
+    ssh_keys:
+      - key1
+      - key2
+
+- name: Assign SSH keys
+  debug:
+    msg: "{{ item.0.name }}: {{ item.1 }}"
+  with_subelements:
+    - "{{ users }}"
+    - ssh_keys
+```
+
+---
+
+### ✅ `05-dict2items`
+
+```yaml
+my_settings:
+  port: 8080
+  debug: true
+
+- name: Print settings
+  debug:
+    msg: "Setting {{ item.key }} = {{ item.value }}"
+  loop: "{{ my_settings | dict2items }}"
+```
+
+---
+
+### ✅ `06-loop_control`
+
+```yaml
+- name: Loop with index
+  debug:
+    msg: "Installing {{ item }} at index {{ idx }}"
+  loop:
+    - nginx
+    - mysql
+    - php
+  loop_control:
+    index_var: idx
+```
+
+---
+
+## 💬 4. **Interview Questions + Answers**
+
+### Q1: What's the difference between `with_items` and `loop`?
+
+**A:** `loop` is newer, cleaner, and supports more advanced features. `with_items` is the older, legacy syntax.
+
+---
+
+### Q2: How can you loop through nested data like users and their SSH keys?
+
+**A:** Use `with_subelements`. It helps iterate over a list of dictionaries and a key inside each dictionary.
+
+---
+
+### Q3: How do you iterate over dictionary values?
+
+**A:** Use `with_dict` (legacy) or convert using `dict2items` and loop through that.
+
+---
+
+### Q4: What is `loop_control` used for?
+
+**A:** It customizes loop behavior, e.g., adds index tracking (`index_var`) or custom labels for better logs.
+
+---
+
+### Q5: Can `loop` and `when` be used together?
+
+**A:** Yes, `when` can be used inside a loop to conditionally skip individual items.
+
 
 
